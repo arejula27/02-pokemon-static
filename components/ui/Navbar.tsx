@@ -1,5 +1,6 @@
-import { Spacer, Text, useTheme } from '@nextui-org/react'
+import { Link, Spacer, Text, useTheme } from '@nextui-org/react'
 import Image from 'next/image'
+import NextLink from 'next/link'
 import React from 'react'
 
 export const Navbar = () => {
@@ -23,10 +24,20 @@ export const Navbar = () => {
       height={70}
       />
 
-      <Text color='white' h2>P</Text>
-      <Text color='white' h3>okémon</Text>
+      <NextLink href={'/'} passHref>
+      <a style={{ display: 'flex' }}>
+          <Text color='white' h2>P</Text>
+          <Text color='white' h3>okémon</Text>
+        </a> 
+      </NextLink>
+
+      
       <Spacer css={{flex:1}}/>
+      <NextLink href={'/favorites'} passHref>
+        <Link>
       <Text color='white' h3>Favoritos</Text>
+      </Link> 
+      </NextLink>
     </div>
   )
 }
