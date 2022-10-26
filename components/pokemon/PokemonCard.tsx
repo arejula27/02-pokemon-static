@@ -12,7 +12,7 @@ interface Props{
 export const PokemonCard:FC <Props> = ({pokemon}) => {
 
   const onClick = ()=>{
-    router.push(`/pokemon/${pokemon.id}`)
+    router.push(`/pokemon/name/${pokemon.name}`)
 
   }
 

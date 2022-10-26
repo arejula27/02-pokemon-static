@@ -1,14 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import React, { ReactElement, useEffect, useState } from 'react'
-import { pokeApi } from '../../api'
-import { MainLayout } from '../../components/layout'
-import { PokemonInfo } from '../../interfaces'
-import { NextPageWithLayout } from '../_app'
+
 import { Button, Card, Container, Grid, Text ,Image} from '@nextui-org/react';
-import { getPokemonInfo, localFavorites } from '../../utils'
+
 
 import confetti from "canvas-confetti"
+import { PokemonInfo, PokemonListResponse, SmallPokemon } from '../../../interfaces';
+import { getPokemonInfo, localFavorites } from '../../../utils';
+import { NextPageWithLayout } from '../../_app';
+import { MainLayout } from '../../../components/layout';
+import { pokeApi } from '../../../api';
 
 
 
@@ -140,12 +142,14 @@ PokemonPage.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-  const pokemonList = [...Array(151)].map((value,index)=>""+(index+1))
-  //la cantidad de path que tenga en el array seran las paginas
-  //que se crean en build
+    const {data} = await pokeApi.get<PokemonListResponse>("pokemon?limit=151");
+    const pokemonList: SmallPokemon[] = data.results
+
+  
+ 
   return {
-    paths: pokemonList.map((id)=>({
-      params:{id:id}
+    paths: pokemonList.map((pokemon)=>({
+      params:{name:pokemon.name}
 
     })),
     fallback: false
@@ -157,8 +161,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   //const { data } = await  // your fetch function here 
-  const { id } = params as {id : string}
-  const pokemon = await getPokemonInfo(id);
+  const { name } = params as {name : string}
+  const pokemon = await getPokemonInfo(name);
 
   
   return {
@@ -166,14 +170,6 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       pokemon
       
     }
-}
-
-
-return {
-  props: {
-    pokemon
-    
-  }
   }
 }
 

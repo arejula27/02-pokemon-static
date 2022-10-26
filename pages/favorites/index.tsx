@@ -1,21 +1,30 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { MainLayout } from '../../components/layout';
 import { NextPageWithLayout } from '../_app';
+import { NoFavs } from '../../components/ui';
+import { localFavorites } from '../../utils';
+import { FavoritePokemons } from '../../components/pokemon';
+import { FC } from 'react';
 
-const FavoritesPage:NextPageWithLayout = () => {
-  return (
-    <div>FavoritesPage</div>
-  )
-}
+const FavoritesPage:FC = () => {
+  const [favoritePokemons, setFavoritePokemons] = useState<number[]>([]);
+
+  useEffect(() => {
+    setFavoritePokemons( localFavorites.pokemons() );
+  }, []);
 
 
-FavoritesPage.getLayout = function getLayout(page: ReactElement) {
-  
   return (
     <MainLayout title='Favoritos'>
-      {page}
+     {
+          favoritePokemons.length === 0 
+            ? ( <NoFavs /> )
+            : ( <FavoritePokemons pokemons={favoritePokemons} /> )
+              }
     </MainLayout>
   )
 }
+
+
 
 export default FavoritesPage;
