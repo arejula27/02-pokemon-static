@@ -6,11 +6,11 @@ import { Button, Card, Container, Grid, Text ,Image} from '@nextui-org/react';
 
 
 import confetti from "canvas-confetti"
-import { PokemonInfo, PokemonListResponse, SmallPokemon } from '../../../interfaces';
-import { getPokemonInfo, localFavorites } from '../../../utils';
-import { NextPageWithLayout } from '../../_app';
-import { MainLayout } from '../../../components/layout';
-import { pokeApi } from '../../../api';
+import { PokemonInfo, PokemonListResponse, SmallPokemon } from '../../interfaces';
+import { getPokemonInfo, localFavorites } from '../../utils';
+import { NextPageWithLayout } from '../_app';
+import { MainLayout } from '../../components/layout';
+import { pokeApi } from '../../api';
 
 
 
